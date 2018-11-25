@@ -1195,7 +1195,7 @@ brand_id</ColNames>
     </key>
     <column id="278" parent="216" name="id">
       <Position>1</Position>
-      <Comment>订单详情id </Comment>
+      <Comment>订单详情id</Comment>
       <DataType>bigint(20)|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>1</SequenceIdentity>
