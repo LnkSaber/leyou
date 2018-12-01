@@ -13,7 +13,10 @@ import org.springframework.util.CollectionUtils;
 import sun.awt.image.GifImageDecoder;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -107,5 +110,27 @@ public class SpecificationService {
         else {
             throw new LyException(ExceptionEnum.SPEC_GROUP_DELETE_ERROR);
         }
+    }
+
+    public List<SpecGroup> queryListByCid(Long cid) {
+        //查询规格组
+        List<SpecGroup> specGroups = queryGroupByCid(cid);
+        //查询当前分类下的参数
+        List<SpecParam> specParams = queryParamList(null, cid, null);
+
+        //先把规格参数变成map,map的key是规格组id,map的值是组下的所有参数
+        Map<Long,List<SpecParam>> map =new HashMap<>();
+        for (SpecParam param : specParams) {
+            if(!map.containsKey(param.getGroupId())){
+                //这个组id在map中不存在，新增一个list
+                map.put(param.getGroupId(),new ArrayList<>());
+            }
+            map.get(param.getGroupId()).add(param);
+        }
+        //填充param到group当中去
+        for (SpecGroup group : specGroups) {
+            group.setParams(map.get(group.getId()));
+        }
+        return specGroups;
     }
 }

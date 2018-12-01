@@ -42,4 +42,12 @@ public interface GoodsApi {
             @RequestParam(value = "saleable",required = false) Boolean saleable,
             @RequestParam(value = "key",required = false) String key
     );
+
+    /**
+     * 根据spu的id查询spu
+     * @param id
+     * @return
+     */
+    @GetMapping("spu/{id}")
+    Spu querySpuById(@PathVariable("id") Long id);
 }

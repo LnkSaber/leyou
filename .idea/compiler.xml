@@ -10,6 +10,7 @@
         <module name="ly-gateway" />
         <module name="ly-item-interface" />
         <module name="ly-item-service" />
+        <module name="ly-page" />
         <module name="ly-registry" />
         <module name="ly-search" />
         <module name="ly-upload" />
