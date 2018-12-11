@@ -12,11 +12,11 @@ zuul:
   routes:
     item-service: /item/**
     search-service: /search/**
+    user-service: /user/**
     upload-service:
       path: /upload/**
       serviceId: upload-service
       strip-prefix: false
-
 hystrix:
   command:
     default:

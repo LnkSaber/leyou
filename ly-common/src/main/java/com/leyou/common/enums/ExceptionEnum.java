@@ -30,7 +30,9 @@ public enum ExceptionEnum {
     INVALID_FILE_TYPE(400,"无效文件类型"),
     GOODS_SAVE_ERROR(500,"新增商品失败"),
     GOODS_UPDATE_ERROR(500,"更新商品失败"),
-    GOODS_ID_CANNOT_BE_NULL(400,"商品id不能为空")
+    GOODS_ID_CANNOT_BE_NULL(400,"商品id不能为空"),
+    INVALID_USER_DATA_TYPE(400,"无效的用户数据类型"),
+    INVALID_VERIFY_CODE(400,"无效的验证码")
     ;
 
     private int code;

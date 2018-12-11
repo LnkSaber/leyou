@@ -63,6 +63,9 @@ public class PageService {
         //输出流
         File dest = new File("C:\\Users\\pc\\Desktop\\leyou\\upload", spuId + ".html");
 
+        if (dest.exists()){
+            dest.delete();
+        }
         try {
             PrintWriter writer =   new PrintWriter(dest,"UTF-8");
             //生成HTML
@@ -71,5 +74,12 @@ public class PageService {
             log.error("[静态页服务]生成静态页面异常!",e);
         }
 
+    }
+
+    public void deleteHtml(Long spuId) {
+        File dest = new File("C:\\Users\\pc\\Desktop\\leyou\\upload", spuId + ".html");
+        if (dest.exists()){
+            dest.delete();
+        }
     }
 }

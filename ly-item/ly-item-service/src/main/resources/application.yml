@@ -3,6 +3,19 @@ server:
 spring:
   application:
     name: item-service
+  rabbitmq:
+    host: 192.168.43.253
+    username: saber
+    password: saber
+    virtual-host: /saber
+    template:
+      retry:
+        enabled: true
+        initial-interval: 10000ms
+        max-interval: 30000ms
+        multiplier: 2
+      exchange: ly.item.exchange
+    publisher-confirms: true
   datasource:
     url: jdbc:mysql://localhost:3306/people
     username: root

@@ -1,0 +1,18 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: sms-service
+  rabbitmq:
+    host: 192.168.43.253
+    username: saber
+    password: saber
+    virtual-host: /saber
+  redis:
+    host: 192.168.43.253
+ly:
+  sms:
+    accessKeyId: LTAIdwG7lf7L1IXD # accessKeyId
+    accessKeySecret: QZYteiJhr23pRIJZAtfpnfZNGmpimR # AccessKeySecret
+    signName: 宁波治瑞 # 签名名称
+    verifyCodeTemplate: SMS_152505246 # 模板名称
