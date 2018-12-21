@@ -75,4 +75,21 @@ public class UserService {
         user.setCreated(new Date());
         userMapper.insert(user);
     }
+
+    public User queryUserByUsernameAndPassword(String username, String password) {
+        //查询用户
+        User recode = new User();
+        recode.setUsername(username);
+        User user = userMapper.selectOne(recode);
+        //校验
+        if(user==null){
+            throw new LyException(ExceptionEnum.INVALID_USERNAME_PASSWORD);
+        }
+        //校验密码
+        if (!StringUtils.equals(user.getPassword(), CodecUtils.md5Hex(password,user.getSalt()))) {
+            throw new LyException(ExceptionEnum.INVALID_USERNAME_PASSWORD);
+        }
+        //用户名和密码正确
+        return user;
+    }
 }

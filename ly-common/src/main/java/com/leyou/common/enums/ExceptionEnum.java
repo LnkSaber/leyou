@@ -32,7 +32,21 @@ public enum ExceptionEnum {
     GOODS_UPDATE_ERROR(500,"更新商品失败"),
     GOODS_ID_CANNOT_BE_NULL(400,"商品id不能为空"),
     INVALID_USER_DATA_TYPE(400,"无效的用户数据类型"),
-    INVALID_VERIFY_CODE(400,"无效的验证码")
+    INVALID_VERIFY_CODE(400,"无效的验证码"),
+    INVALID_USERNAME_PASSWORD(400,"用户名或者密码错误"),
+    CREATE_TOKEN_ERROR(500,"用户凭证生成失败"),
+    UNAUTHORIZED(403,"未授权"),
+    CART_NOT_FOUND(404,"购物车为空"),
+    ORDER_NOT_FOUND(404,"订单不存在"),
+    ORDER_DETAIL_NOT_FOUND(404,"订单详情不存在"),
+    ORDER_STATUS_NOT_FOUND(404,"订单状态不存在"),
+    CREATE_ORDER_ERROR(500,"订单创建失败"),
+    STOCK_NOT_ENOUGH(500,"库存不足"),
+    WX_PAY_ORDER_FAIL(500,"微信下单失败"),
+    ORDER_STATUS_ERROR(400,"无效的订单状态"),
+    INVALID_SIGN_ERROR(400,"无效的签名异常"),
+    INVALID_ORDER_PARAM(400,"订单参数异常"),
+    UPDATE_ORDER_STATUS_ERROR(500,"更新订单状态异常")
     ;
 
     private int code;

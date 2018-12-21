@@ -10,13 +10,31 @@ eureka:
 zuul:
   prefix: /api # 添加路由前缀
   routes:
+    auth-service: /auth/**
     item-service: /item/**
     search-service: /search/**
     user-service: /user/**
+    cart-service: /cart/**
+    order-service: /order/**
     upload-service:
       path: /upload/**
       serviceId: upload-service
       strip-prefix: false
+  add-host-header: true #添加host头信息
+  sensitive-headers:    #覆盖敏感头信息
+ly:
+  jwt:
+    pubKeyPath: C:/keyt/rsa/id_rsa.pub # 公钥地址
+    cookieName: LY_TOKEN
+  filter:
+    allowPaths:
+      - /api/auth
+      - /api/search
+      - /api/user/register
+      - /api/user/check
+      - /api/user/code
+      - /api/item
+
 hystrix:
   command:
     default:

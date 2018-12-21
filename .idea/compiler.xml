@@ -6,10 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="ly-auth-common" />
+        <module name="ly-auth-service" />
+        <module name="ly-cart" />
         <module name="ly-common" />
         <module name="ly-gateway" />
         <module name="ly-item-interface" />
         <module name="ly-item-service" />
+        <module name="ly-order" />
         <module name="ly-page" />
         <module name="ly-registry" />
         <module name="ly-search" />
