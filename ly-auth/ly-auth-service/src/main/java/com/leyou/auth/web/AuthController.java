@@ -7,6 +7,7 @@ import com.leyou.auth.utils.JwtUtils;
 import com.leyou.common.enums.ExceptionEnum;
 import com.leyou.common.exception.LyException;
 import com.leyou.common.utils.CookieUtils;
+import io.swagger.annotations.*;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+@Api("授权接口")
 @RestController
 @EnableConfigurationProperties(JwtProperties.class)
 public class AuthController {
@@ -34,6 +35,12 @@ public class AuthController {
      * @param password
      * @return
      */
+    @ApiOperation(value = "登录授权，接收用户和密码,校验，并将生成的token保存到浏览器中的cookie之中")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "username", required = true, value = "账户的用户名"),
+            @ApiImplicitParam(name = "password", required = true, value = "账户的密码")
+    })
+    @ApiResponse(code = 204, message = "授权登录成功，且无返回值")
     @PostMapping("login")
     public ResponseEntity<Void> login(
             @RequestParam("username") String username,
@@ -48,10 +55,15 @@ public class AuthController {
     }
 
     /**
-     *
      * @param token
      * @return
      */
+    @ApiOperation("校验是否授权过,从本地的cookie中取出token，传送到后台校验")
+    @ApiImplicitParam(name = "token", required = true, value = "从cookie中获取的token(加密后的载荷)，后台教研")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "校验成功"),
+            @ApiResponse(code = 403, message = "未授权")
+    })
     @GetMapping("verify")
     public ResponseEntity<UserInfo> verify(
             @CookieValue ("LY_TOKEN") String token,
@@ -61,7 +73,6 @@ public class AuthController {
             UserInfo info = JwtUtils.getInfoFromToken(token, prop.getPublicKey());
             //刷新token,重新生成token
             String newtoken = JwtUtils.generateToken(info, prop.getPrivateKey(), prop.getExpire());
-            //写入cookie
             //写入cookie
             CookieUtils.newBuilder(response).httpOnly().request(request)
                     .build(prop.getCookieName(),newtoken);

@@ -3,11 +3,12 @@ package com.leyou.item.pojo;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
 @Table(name = "tb_sku")
-public class Sku {
+public class Sku implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,4 +23,6 @@ public class Sku {
     private Date lastUpdateTime;// 最后修改时间
     @Transient
     private Integer stock;// 库存
+    @Transient
+    private Long uid;//厂家id
 }

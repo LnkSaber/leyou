@@ -11,6 +11,8 @@ public enum ExceptionEnum {
 //    PRICE_CANNOT_BE_NULL(400,"价格不能为空"),
     CATEGORY_NOT_FOND(404,"商品分类沒查到"),
     BRAND_NOT_FOUND(404,"品牌不存在"),
+    BRAND_UPDATE_ERROR(500,"商品修改失败"),
+    BRAND_DELETE_ERROR(500,"商品删除失败"),
     SPEC_GROUP_NOT_FOUND(404,"商品规格组没查到"),
     SPEC_GROUP_ADD_ERROR(500,"商品规格组新增失败"),
     SPEC_GROUP_UPDATE_ERROR(500,"商品规格组更新失败"),
@@ -46,7 +48,10 @@ public enum ExceptionEnum {
     ORDER_STATUS_ERROR(400,"无效的订单状态"),
     INVALID_SIGN_ERROR(400,"无效的签名异常"),
     INVALID_ORDER_PARAM(400,"订单参数异常"),
-    UPDATE_ORDER_STATUS_ERROR(500,"更新订单状态异常")
+    UPDATE_ORDER_STATUS_ERROR(500,"更新订单状态异常"),
+    USER_NOT_FOUND(500, "查询用户失败"),
+    USER_UPDATE_ROLE_ERROR(500, "更新用户权限失败"),
+    GOOD_USER_ERROR(500,"厂家商品新增失败")
     ;
 
     private int code;

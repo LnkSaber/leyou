@@ -25,6 +25,7 @@ public class JwtUtils {
     public static String generateTokenInMinutes(UserInfo userInfo, PrivateKey privateKey, int expire) throws Exception {
         return Jwts.builder()
                 .claim(JwtConstants.JWT_KEY_ID, userInfo.getId())
+                .claim(JwtConstants.JWT_KEY_USER_ROLE,userInfo.getRole())
                 .claim(JwtConstants.JWT_KEY_USER_NAME, userInfo.getUsername())
                 .setExpiration(DateTime.now().plusMinutes(expire).toDate())
                 .signWith(SignatureAlgorithm.RS256, privateKey)
@@ -34,6 +35,7 @@ public class JwtUtils {
     public static String generateTokenInSeconds(UserInfo userInfo, PrivateKey privateKey, int expire) throws Exception {
         return Jwts.builder()
                 .claim(JwtConstants.JWT_KEY_ID, userInfo.getId())
+                .claim(JwtConstants.JWT_KEY_USER_ROLE, userInfo.getRole())
                 .claim(JwtConstants.JWT_KEY_USER_NAME, userInfo.getUsername())
                 .setExpiration(DateTime.now().plusSeconds(expire).toDate())
                 .signWith(SignatureAlgorithm.RS256, privateKey)
@@ -52,6 +54,7 @@ public class JwtUtils {
     public static String generateToken(UserInfo userInfo, byte[] privateKey, int expireMinutes) throws Exception {
         return Jwts.builder()
                 .claim(JwtConstants.JWT_KEY_ID, userInfo.getId())
+                .claim(JwtConstants.JWT_KEY_USER_ROLE, userInfo.getRole())
                 .claim(JwtConstants.JWT_KEY_USER_NAME, userInfo.getUsername())
                 .setExpiration(DateTime.now().plusMinutes(expireMinutes).toDate())
                 .signWith(SignatureAlgorithm.RS256, RsaUtils.getPrivateKey(privateKey))
@@ -60,6 +63,7 @@ public class JwtUtils {
     public static String generateToken(UserInfo userInfo, PrivateKey privateKey, int expireMinutes) throws Exception {
         return Jwts.builder()
                 .claim(JwtConstants.JWT_KEY_ID, userInfo.getId())
+                .claim(JwtConstants.JWT_KEY_USER_ROLE, userInfo.getRole())
                 .claim(JwtConstants.JWT_KEY_USER_NAME, userInfo.getUsername())
                 .setExpiration(DateTime.now().plusMinutes(expireMinutes).toDate())
                 .signWith(SignatureAlgorithm.RS256, privateKey)
@@ -104,6 +108,7 @@ public class JwtUtils {
         Claims body = claimsJws.getBody();
         return new UserInfo(
                 ObjectUtils.toLong(body.get(JwtConstants.JWT_KEY_ID)),
+                ObjectUtils.toLong(body.get(JwtConstants.JWT_KEY_USER_ROLE)),
                 ObjectUtils.toString(body.get(JwtConstants.JWT_KEY_USER_NAME))
         );
     }
@@ -121,6 +126,7 @@ public class JwtUtils {
         Claims body = claimsJws.getBody();
         return new UserInfo(
                 ObjectUtils.toLong(body.get(JwtConstants.JWT_KEY_ID)),
+                ObjectUtils.toLong(body.get(JwtConstants.JWT_KEY_USER_ROLE)),
                 ObjectUtils.toString(body.get(JwtConstants.JWT_KEY_USER_NAME))
         );
     }

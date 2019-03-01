@@ -39,6 +39,7 @@ public class UserInterceptor implements HandlerInterceptor {
            log.error("[购物车服务] 解析用户身份失败.",e);
             return false;
         }
+//        return true;
     }
 
     @Override

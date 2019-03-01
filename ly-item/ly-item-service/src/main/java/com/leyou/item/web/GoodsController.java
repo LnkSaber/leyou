@@ -6,6 +6,7 @@ import com.leyou.item.pojo.Sku;
 import com.leyou.item.pojo.Spu;
 import com.leyou.item.pojo.SpuDetail;
 import com.leyou.item.service.GoodsService;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Api("商品接口")
 @RestController
 public class GoodsController {
     @Autowired
@@ -26,6 +28,7 @@ public class GoodsController {
      * @param key
      * @return
      */
+    //TODO 是否要删除
     @GetMapping("/spu/page")
     public ResponseEntity<PageResult<Spu>> querySpuByPage(
             @RequestParam(value = "page",defaultValue = "1") Integer page,
@@ -36,17 +39,24 @@ public class GoodsController {
     return ResponseEntity.ok(goodsService.querySpuByPage(page,rows,saleable,key));
     }
 
+    //TODO 是否要删除
     /**
      * 商品新增
      * @param spu
      * @return
      */
     @PostMapping("goods")
-    private ResponseEntity<Void> saveGoods(@RequestBody Spu spu){
+    public ResponseEntity<Void> saveGoods(@RequestBody Spu spu){
+        System.out.println(spu);
         goodsService.saveGoods(spu);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /**
+     * 商品修改
+     * @param spu
+     * @return
+     */
     @PutMapping("goods")
     private ResponseEntity<Void> uploadGoods(@RequestBody Spu spu){
         goodsService.updateGoods(spu);
@@ -74,7 +84,7 @@ public class GoodsController {
     }
 
     /**
-     * 根据spu的id集合查询的所有sku
+     * 根据sku的id集合查询的所有sku
      * @param ids
      * @return
      */
@@ -104,4 +114,21 @@ public class GoodsController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
+    //******************厂家*****************************************************
+    @GetMapping("/spu/user/page")
+    public ResponseEntity<PageResult<Spu>> queryUserSpuByPage(
+            @RequestParam(value = "uid", required = true) Long uid,
+            @RequestParam(value = "page",defaultValue = "1") Integer page,
+            @RequestParam(value = "rows",defaultValue = "5") Integer rows,
+            @RequestParam(value = "saleable",required = false) Boolean saleable,
+            @RequestParam(value = "key",required = false) String key
+    ){
+        return ResponseEntity.ok(goodsService.queryUserSpuByPage(uid,page,rows,saleable,key));
+    }
+
+    @PostMapping("user/goods/{uid}")
+    public ResponseEntity<Void> saveUserGoods(@RequestBody Spu spu, @PathVariable("uid") Long uid){
+        goodsService.saveUserGoods(spu,uid);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
 }

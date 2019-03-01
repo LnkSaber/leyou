@@ -30,10 +30,14 @@ ly:
     allowPaths:
       - /api/auth
       - /api/search
+      - /zuul/api/upload/
       - /api/user/register
       - /api/user/check
       - /api/user/code
+      - /api/user/query
       - /api/item
+      - /api/order-service/order
+
 
 hystrix:
   command:

@@ -30,7 +30,7 @@ public class AuthService {
                 throw new LyException(ExceptionEnum.INVALID_USERNAME_PASSWORD);
             }
             //生成token
-            String token = JwtUtils.generateToken(new UserInfo(user.getId(), username), prop.getPrivateKey(), prop.getExpire());
+            String token = JwtUtils.generateToken(new UserInfo(user.getId(),  user.getRole(), username), prop.getPrivateKey(), prop.getExpire());
             return token;
         } catch (Exception e) {
             log.error("[授权中心] 用户名或密码有误，用户名称{}",username,e);

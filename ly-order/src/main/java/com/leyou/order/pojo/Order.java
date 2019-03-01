@@ -1,6 +1,7 @@
 package com.leyou.order.pojo;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -9,6 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@ToString
 @Table(name = "tb_order")
 public class Order {
 
@@ -42,4 +44,7 @@ public class Order {
 
     @Transient
     private List<OrderDetail> orderDetails;
+
+    @Transient
+    private Integer totalNum;
 }

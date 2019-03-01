@@ -53,7 +53,7 @@ public class UploadService {
 //            String extension=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1); 效率差
             String extension= StringUtils.substringAfterLast(file.getOriginalFilename(),".");
             StorePath storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), extension, null);
-
+            log.info("[文件上传成功]：地址{}",prop.getBaseUrl()+storePath.getFullPath());
             //返回路径"http://image.leyou.com/" +
             return prop.getBaseUrl()+storePath.getFullPath();
         } catch (IOException e) {

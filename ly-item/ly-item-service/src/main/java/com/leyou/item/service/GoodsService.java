@@ -6,10 +6,7 @@ import com.leyou.common.dto.CartDTO;
 import com.leyou.common.enums.ExceptionEnum;
 import com.leyou.common.exception.LyException;
 import com.leyou.common.vo.PageResult;
-import com.leyou.item.mapper.SkuMapper;
-import com.leyou.item.mapper.SpuDetailMapper;
-import com.leyou.item.mapper.SpuMapper;
-import com.leyou.item.mapper.StockMapper;
+import com.leyou.item.mapper.*;
 import com.leyou.item.pojo.*;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.amqp.core.AmqpTemplate;
@@ -26,6 +23,12 @@ import java.util.stream.Collectors;
 public class GoodsService {
     @Autowired
     private SpuMapper spuMapper;
+
+    @Autowired
+    private UserSpuMapper userSpuMapper;
+
+    @Autowired
+    private UserSkuMappper userSkuMappper;
 
     @Autowired
     private SpuDetailMapper spuDetailMapper;
@@ -45,6 +48,7 @@ public class GoodsService {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
+    //TODO  是否要删除
     public PageResult<Spu> querySpuByPage(Integer page, Integer rows, Boolean saleable, String key) {
         //分页
         PageHelper.startPage(page,rows);
@@ -87,6 +91,7 @@ public class GoodsService {
         }
     }
 
+    //TODO 是否要删除
     @Transactional
     public void saveGoods(Spu spu) {
         //新增spu
@@ -207,7 +212,6 @@ public class GoodsService {
             }
             //新增sku的stock
             saveSkuAndStock(spu);
-
             //发送mq消息
             amqpTemplate.convertAndSend("item.update",spu.getId());
 
@@ -233,6 +237,22 @@ public class GoodsService {
             throw new LyException(ExceptionEnum.GOODS_NOT_FOUND);
         }
         loadStockInSku(ids, skus);
+        //***********************************************************************************
+        //给sku添加上uid
+        //TODO sku spu uid该怎么整
+//        List<Long> spuIds = skus.stream().map(Sku::getSpuId).collect(Collectors.toList());
+//        List<UserSpu> userSpus = userSpuMapper.selectByIdList(spuIds);
+//        if (CollectionUtils.isEmpty(userSpus)) {
+//            throw new LyException(ExceptionEnum.GOOD_USER_ERROR);
+//        }
+//        List<Long> uids = userSpus.stream().map(UserSpu::getUid).collect(Collectors.toList());
+        List<Long> uids = userSkuMappper.selectByIdList(ids).stream().map(UserSku::getUid).collect(Collectors.toList());
+        int num = 0;
+        for (Sku sku : skus) {
+            sku.setUid(uids.get(num));
+            num++;
+        }
+        //***********************************************************************************
         return skus;
     }
 
@@ -256,5 +276,79 @@ public class GoodsService {
                 throw new LyException(ExceptionEnum.STOCK_NOT_ENOUGH);
             }
         }
+    }
+
+    //*************************************厂家****************************************************
+    public PageResult<Spu> queryUserSpuByPage( Long uid, Integer page, Integer rows, Boolean saleable, String key) {
+        //分页
+        PageHelper.startPage(page,rows);
+        UserSpu userSpu =new UserSpu();
+        userSpu.setUid(uid);
+        List<UserSpu> spuList = userSpuMapper.select(userSpu);
+        List<Long> SpuIds = spuList.stream().map(UserSpu::getSpuid).collect(Collectors.toList());
+        List<Spu> spus = spuMapper.selectByIdList(SpuIds);
+        //判断
+        if(CollectionUtils.isEmpty(spus)){
+            throw new LyException(ExceptionEnum.GOODS_NOT_FOUND);
+        }
+
+        //解析分类对象和品牌的名称
+        loadCategoryAndBrandName(spus);
+
+        //解析分页对象
+        PageInfo<Spu> spuPageInfo = new PageInfo<>(spus);
+        return new PageResult<>(spuPageInfo.getTotal(),spus);
+    }
+
+    @Transactional
+    public void saveUserGoods(Spu spu, Long uid) {
+        //新增spu
+        spu.setId(null);
+        spu.setCreateTime(new Date());
+        spu.setLastUpdateTime(spu.getCreateTime());
+        spu.setSaleable(true);
+        spu.setValid(false);
+
+        int count =spuMapper.insert(spu);
+        if(count !=1){
+            throw new LyException(ExceptionEnum.GOODS_SAVE_ERROR);
+        }
+
+        //新增Spudetail
+        SpuDetail detail=spu.getSpuDetail();
+        detail.setSpuId(spu.getId());
+        spuDetailMapper.insert(detail);
+        //新增sku和stock
+        saveSkuAndStock(spu);
+
+        //同步到用户表中
+        UserSpu userSpu = new UserSpu();
+        userSpu.setSpuid(spu.getId());
+        userSpu.setUid(uid);
+         count = userSpuMapper.insert(userSpu);
+        if (count == 0){
+            throw new LyException(ExceptionEnum.GOODS_SAVE_ERROR);
+        }
+
+        //厂商Sku与的uid关系
+
+        //新增sku
+
+        List<Long> skuIds = spu.getSkus().stream().map(Sku::getId).collect(Collectors.toList());
+        List<UserSku> userSkuList = new ArrayList<>();
+        for (Long skuId : skuIds) {
+            UserSku userSku = new UserSku();
+            userSku.setUid(uid);
+            userSku.setSkuid(skuId);
+            userSkuList.add(userSku);
+        }
+        count = userSkuMappper.insertList(userSkuList);
+        if (count == 0 ){
+            throw new LyException(ExceptionEnum.GOODS_SAVE_ERROR);
+        }
+
+        //发送mq消息
+        amqpTemplate.convertAndSend("item.insert",spu.getId());
+
     }
 }

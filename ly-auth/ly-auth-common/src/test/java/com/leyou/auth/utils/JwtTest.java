@@ -42,7 +42,7 @@ public class JwtTest {
     public void testGenerateToken() throws Exception {
         // 生成token
 //        byte[] privateKey = Files.readAllBytes(new File(priKeyPath).toPath());
-        String token = JwtUtils.generateToken(new UserInfo(20L, "林Saber"), privateKey, 5);
+        String token = JwtUtils.generateToken(new UserInfo(20L,2L, "林Saber"), privateKey, 5);
         System.out.println("token = " + token);
     }
 

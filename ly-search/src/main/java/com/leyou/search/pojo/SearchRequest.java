@@ -1,9 +1,20 @@
 package com.leyou.search.pojo;
 
+import lombok.Data;
+
 import java.util.Map;
 
 public class SearchRequest {
     private String key;// 搜索条件
+
+    @Override
+    public String toString() {
+        return "SearchRequest{" +
+                "key='" + key + '\'' +
+                ", page=" + page +
+                ", filter=" + filter +
+                '}';
+    }
 
     private Integer page;// 当前页
 

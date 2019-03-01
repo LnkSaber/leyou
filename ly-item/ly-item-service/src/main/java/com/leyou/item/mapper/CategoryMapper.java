@@ -1,6 +1,7 @@
 package com.leyou.item.mapper;
 
 import com.leyou.item.pojo.Category;
+import org.apache.ibatis.annotations.Select;
 import tk.mybatis.mapper.additional.idlist.IdListMapper;
 import tk.mybatis.mapper.common.Mapper;
 
