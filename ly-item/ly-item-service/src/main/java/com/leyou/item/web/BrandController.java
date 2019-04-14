@@ -103,7 +103,7 @@ public class BrandController {
      * @return
      */
     //TODO  厂家已完成分页查询，管理员是否需要分页查询
-    @ApiOperation(value = "查询品牌", notes = "根据商品品牌(bid),查询品牌")
+    @ApiOperation(value = "查询品牌", notes = "根据商品品牌(leyou),查询品牌")
     @ApiImplicitParam(name = "id", required = true, value = "品牌bid", type = "Long")
     @ApiResponse(code = 200, message = "查询成功,返回品牌信息")
     @GetMapping("{id}")

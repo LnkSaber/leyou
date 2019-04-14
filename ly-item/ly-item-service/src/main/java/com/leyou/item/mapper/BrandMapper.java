@@ -17,13 +17,13 @@ public interface BrandMapper extends BaseMapper<Brand> {
      * @param bid 品牌id
      * @return
      */
-    @Insert("INSERT INTO tb_category_brand (category_id, brand_id) VALUES (#{cid},#{bid})")
-    int insertCategoryBrand(@Param("cid") Long cid ,@Param("bid") Long bid);
+    @Insert("INSERT INTO tb_category_brand (category_id, brand_id) VALUES (#{cid},#{leyou})")
+    int insertCategoryBrand(@Param("cid") Long cid ,@Param("leyou") Long bid);
 
     @Select("SELECT b.* FROM tb_category_brand cb INNER JOIN tb_brand b ON b.id =cb.brand_id WHERE cb.category_id =#{cid}")
     List<Brand> queryByCategoryId(@Param("cid") Long cid);
 
-    @Delete("delete from tb_category_brand where brand_id = #{bid}")
-    int deleteCategoryBrandBybid(@Param("bid") Long bid);
+    @Delete("delete from tb_category_brand where brand_id = #{leyou}")
+    int deleteCategoryBrandBybid(@Param("leyou") Long bid);
 
 }

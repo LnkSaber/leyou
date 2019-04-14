@@ -16,6 +16,7 @@ zuul:
     user-service: /user/**
     cart-service: /cart/**
     order-service: /order/**
+    bid-service: /bid/**
     upload-service:
       path: /upload/**
       serviceId: upload-service
@@ -37,6 +38,7 @@ ly:
       - /api/user/query
       - /api/item
       - /api/order-service/order
+      - /api/bid
 
 
 hystrix:

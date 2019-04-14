@@ -51,7 +51,12 @@ public enum ExceptionEnum {
     UPDATE_ORDER_STATUS_ERROR(500,"更新订单状态异常"),
     USER_NOT_FOUND(500, "查询用户失败"),
     USER_UPDATE_ROLE_ERROR(500, "更新用户权限失败"),
-    GOOD_USER_ERROR(500,"厂家商品新增失败")
+    GOOD_USER_ERROR(500,"厂家商品新增失败"),
+    TENDER_NO_FOUND(404,"招标信息未找到"),
+    TENDER_UPDATE_ERROR(500,"招标信息更新失败"),
+    TENDER_SAVE_ERROR(500, "招标信息保存失败"),
+    BID_NO_FOUND(404,"投标信息未找到"),
+    BID_SAVE_ERROR(500,"投标信息保存失败")
     ;
 
     private int code;

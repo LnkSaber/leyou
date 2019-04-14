@@ -1,0 +1,29 @@
+server:
+  port: 8091
+spring:
+  application:
+    name: Bid-service
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/people
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  jackson:
+    default-property-inclusion: non_null
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:10086/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    ip-address: 127.0.0.1
+    prefer-ip-address: true
+mybatis:
+  type-aliases-package: com.leyou.Bid.pojo
+ly:
+  jwt:
+    pubKeyPath: C:/keyt/rsa/id_rsa.pub # 公钥地址
+    cookieName: LY_TOKEN
+  worker:
+    workerId: 1
+    dataCenterId: 1

@@ -10,7 +10,7 @@ public abstract class AddressClient {
         {
             AddressDTO address = new AddressDTO();
             address.setId(1L);
-            address.setAddress("航头镇航头路18号传智播客 3号楼");
+            address.setAddress("XXX镇XXX路XXX号XXX X号楼");
             address.setCity("宁波");
             address.setDistrict("首南街区");
             address.setName("林Saber");

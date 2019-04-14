@@ -20,6 +20,7 @@
         <module>ly-auth</module>
         <module>ly-cart</module>
         <module>ly-order</module>
+        <module>ly-bid</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8">
+  <component name="Encoding" native2AsciiForPropertiesFiles="true" defaultCharsetForPropertiesFiles="UTF-8" addBOMForNewFiles="with NO BOM">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-auth" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-auth/ly-auth-common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-auth/ly-auth-service" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ly-bid" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-cart" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-common" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ly-gateway" charset="UTF-8" />

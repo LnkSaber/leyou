@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ly-auth-common" />
         <module name="ly-auth-service" />
+        <module name="ly-bid" />
         <module name="ly-cart" />
         <module name="ly-common" />
         <module name="ly-gateway" />
@@ -28,6 +29,7 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="ly-auth-common" options="-parameters" />
       <module name="ly-auth-service" options="-parameters" />
+      <module name="ly-bid" options="-parameters" />
       <module name="ly-cart" options="-parameters" />
       <module name="ly-common" options="-parameters" />
       <module name="ly-gateway" options="-parameters" />

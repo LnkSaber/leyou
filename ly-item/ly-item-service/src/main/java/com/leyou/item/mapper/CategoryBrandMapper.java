@@ -9,6 +9,6 @@ import tk.mybatis.mapper.common.BaseMapper;
 import java.util.List;
 
 public interface CategoryBrandMapper extends BaseMapper<CategoryBand> {
-    @Select("select * from tb_category_brand where brand_id = #{bid}")
-    List<CategoryBand> queryCategoryBandBybid(@Param("bid") Long bid);
+    @Select("select * from tb_category_brand where brand_id = #{leyou}")
+    List<CategoryBand> queryCategoryBandBybid(@Param("leyou") Long bid);
 }
